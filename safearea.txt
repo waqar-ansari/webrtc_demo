@@ -1,0 +1,9 @@
+private fun getInitialWindowMetrics(): Map<String, Any>? {
+    val decorView = reactApplicationContext.currentActivity?.window?.decorView as ViewGroup?
+    val contentView = decorView?.findViewById<View>(android.R.id.content) ?: return null
+    val insets = getSafeAreaInsets(decorView)
+    val frame = getFrame(decorView, contentView)
+    return if (insets == null || frame == null) {
+      null
+    } else mapOf("insets" to edgeInsetsToJavaMap(insets), "frame" to rectToJavaMap(frame))
+  }
